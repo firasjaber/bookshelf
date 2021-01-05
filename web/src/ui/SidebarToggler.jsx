@@ -33,7 +33,7 @@ function SidebarToggler() {
             <DrawerHeader>Menu</DrawerHeader>
 
             <DrawerBody>
-              <Text>texxxt</Text>
+              <Text>Home</Text>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
