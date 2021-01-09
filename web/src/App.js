@@ -8,9 +8,9 @@ import SearchPage from './pages/SearchPage';
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Container maxW="3xl" py="2">
-        <Header />
-        <Router>
+      <Router>
+        <Container maxW="3xl" py="2">
+          <Header />
           <Switch>
             <Route path="/search">
               <SearchPage />
@@ -19,8 +19,8 @@ function App() {
               <HomePage path="/" />
             </Route>
           </Switch>
-        </Router>
-      </Container>
+        </Container>
+      </Router>
     </ChakraProvider>
   );
 }

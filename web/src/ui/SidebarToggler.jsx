@@ -11,6 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { Link, BrowserRouter as Router } from 'react-router-dom';
 
 function SidebarToggler() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,7 +34,16 @@ function SidebarToggler() {
             <DrawerHeader>Menu</DrawerHeader>
 
             <DrawerBody>
-              <Text>Home</Text>
+              <Text>
+                <Link to="/" onClick={onClose}>
+                  Home
+                </Link>
+              </Text>
+              <Text>
+                <Link to="/search" onClick={onClose}>
+                  Search
+                </Link>
+              </Text>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
