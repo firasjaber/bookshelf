@@ -15,7 +15,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
+import { BrowserRouter as NavLink } from 'react-router-dom';
 
 function SidebarToggler() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,8 +39,6 @@ function SidebarToggler() {
 }
 
 const Menu = ({ onClose }) => {
-  const mode = useColorModeValue('dark', 'light');
-  const color = mode === 'dark' ? 'gray.200' : 'gray.800';
   const links = [
     { pathName: 'Home', pathLink: '/' },
     { pathName: 'Search', pathLink: '/search' },
@@ -59,7 +57,6 @@ const Menu = ({ onClose }) => {
                 pathName={pathName}
                 pathLink={pathLink}
                 onClose={onClose}
-                color={color}
               />
             ))}
           </List>
@@ -69,7 +66,9 @@ const Menu = ({ onClose }) => {
   );
 };
 
-const MenuItem = ({ pathName, pathLink, onClose, color }) => {
+const MenuItem = ({ pathName, pathLink, onClose }) => {
+  const mode = useColorModeValue('dark', 'light');
+  const color = mode === 'dark' ? 'gray.200' : 'gray.800';
   return (
     <ListItem
       px="4"
