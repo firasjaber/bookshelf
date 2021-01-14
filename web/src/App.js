@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SearchPage from './pages/SearchPage';
+import BookPage from './pages/BookPage';
+import BooksPage from './pages/BooksPage';
 
 function App() {
   return (
@@ -13,6 +15,14 @@ function App() {
       <Router>
         <Container maxW="3xl" py="2">
           <Switch>
+            <Route path="/book/:bookid">
+              <Header />
+              <BookPage />
+            </Route>
+            <Route path="/books">
+              <Header />
+              <BooksPage />
+            </Route>
             <Route path="/search">
               <Header />
               <SearchPage />
