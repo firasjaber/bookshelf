@@ -12,10 +12,6 @@ const BookCard = ({ book }) => {
   const {
     volumeInfo: { authors, imageLinks, title },
   } = book;
-  console.log(imageLinks.thumbnail);
-  const r = imageLinks.thumbnail.replace('&zoom=1', '$zoom=2');
-  console.log(r);
-
   const bg = useColorModeValue('gray.100', 'gray.700');
   return (
     <Box w="100%" h="395px" bg={bg} rounded="md" boxShadow="base">
