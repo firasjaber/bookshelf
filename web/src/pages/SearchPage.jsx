@@ -64,18 +64,15 @@ const SearchPage = () => {
           </InputGroup>
         </FormControl>
       </Flex>
-      <SimpleGrid minChildWidth="170px" spacing="20px">
+      <Heading as="h4" size="sm" fontWeight="600" textAlign="left" mt="30px">
+        Search Results :
+      </Heading>
+      <SimpleGrid minChildWidth="170px" spacing="20px" mt="20px">
         {books &&
           books.map(book => {
             console.log(book.authors);
             const { title, authors, imageLinks } = book;
-            return (
-              <BookCard
-                title={title}
-                authorName={authors}
-                srcImage={imageLinks.tumbnail}
-              />
-            );
+            return <BookCard book={book} />;
           })}
       </SimpleGrid>
     </Box>
