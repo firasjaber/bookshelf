@@ -20,6 +20,7 @@ export default (state, action) => {
       return {
         ...state,
         token: action.payload.token,
+        user: action.payload.user,
         isAuthenticated: true,
         loading: true,
       };

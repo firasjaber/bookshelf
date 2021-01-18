@@ -13,7 +13,7 @@ import {
   CLEAR_ERRORS,
 } from '../types';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 const AuthState = props => {
   const initialState = {
@@ -35,7 +35,7 @@ const AuthState = props => {
 
     try {
       const res = await axios.get(API_URL + '/users/loggedin');
-
+      console.log(res);
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -75,15 +75,15 @@ const AuthState = props => {
 
   // login user
   const login = async formdata => {
+    console.log('loginn');
     const config = {
       headers: {
         'content-type': 'application/json',
       },
     };
-    formdata.username = formdata.username.tolowercase();
     try {
-      const res = await axios.post(API_URL + '/users/login', formdata, config);
-
+      const URL = API_URL + '/users/login';
+      const res = await axios.post(URL, formdata, config);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -92,7 +92,7 @@ const AuthState = props => {
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.response.data.msg,
+        payload: err.response.data.message,
       });
     }
   };

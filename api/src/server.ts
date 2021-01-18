@@ -8,12 +8,16 @@ import userRoute from './routes/user.routes';
 import connectDB from './utils/db';
 import monitor from 'express-status-monitor';
 import helmet from 'helmet';
+import cors from 'cors';
 
 const NAMESPACE = 'Server';
 const app = express();
 
 /** Connecting to MongoDB Database */
 connectDB();
+
+/** CORS */
+app.use(cors());
 
 /** Simple Monitoring */
 app.use(monitor());
@@ -23,19 +27,19 @@ app.use(helmet());
 
 /** Logging the request */
 app.use((req, res, next) => {
+  logging.info(
+    NAMESPACE,
+    `REQUEST : METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}]`
+  );
+
+  res.on('finish', () => {
     logging.info(
-        NAMESPACE,
-        `REQUEST : METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}]`
+      NAMESPACE,
+      `RESPONSE : METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS - [${res.statusCode}]`
     );
+  });
 
-    res.on('finish', () => {
-        logging.info(
-            NAMESPACE,
-            `RESPONSE : METHOD - [${req.method}], URL - [${req.url}], IP - [${req.socket.remoteAddress}], STATUS - [${res.statusCode}]`
-        );
-    });
-
-    next();
+  next();
 });
 
 /** Parsing the request */
@@ -44,18 +48,18 @@ app.use(bodyParser.json());
 
 /** Rules of the API */
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
 
-    if (req.method == 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
-        return res.status(200).json({});
-    }
+  if (req.method == 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
+    return res.status(200).json({});
+  }
 
-    next();
+  next();
 });
 
 /** Routing */
@@ -64,18 +68,18 @@ app.use('/api/v1/users', userRoute);
 
 /** Error Handling */
 app.use((req, res, next) => {
-    const error = new Error('Route Not found');
+  const error = new Error('Route Not found');
 
-    return res.status(400).json({
-        message: error.message,
-    });
+  return res.status(400).json({
+    message: error.message,
+  });
 });
 
 /** Creating the server */
 const httpServer = http.createServer(app);
 httpServer.listen(config.server.port, () =>
-    logging.info(
-        NAMESPACE,
-        `Server running on ${config.server.hostname}:${config.server.port}`
-    )
+  logging.info(
+    NAMESPACE,
+    `Server running on ${config.server.hostname}:${config.server.port}`
+  )
 );
