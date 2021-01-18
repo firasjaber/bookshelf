@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import {
   Drawer,
   DrawerOverlay,
@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { Link as NavLink } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext/AuthState';
 
 function SidebarToggler() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,6 +40,7 @@ function SidebarToggler() {
 }
 
 const Menu = ({ onClose }) => {
+  const { logout } = useContext(AuthContext);
   const links = [
     { ind: 0, pathName: 'Home', pathLink: '/' },
     { ind: 1, pathName: 'Search', pathLink: '/search' },
@@ -58,6 +60,7 @@ const Menu = ({ onClose }) => {
                 pathName={pathName}
                 pathLink={pathLink}
                 onClose={onClose}
+                logout={logout}
               />
             ))}
           </List>
@@ -67,7 +70,7 @@ const Menu = ({ onClose }) => {
   );
 };
 
-const MenuItem = ({ pathName, pathLink, onClose }) => {
+const MenuItem = ({ pathName, pathLink, onClose, logout }) => {
   const mode = useColorModeValue('dark', 'light');
   const color = mode === 'dark' ? 'gray.200' : 'gray.800';
   return (
@@ -84,7 +87,7 @@ const MenuItem = ({ pathName, pathLink, onClose }) => {
         width="100%"
         as={NavLink}
         to={pathLink}
-        onClick={onClose}
+        onClick={pathName === 'Logout' ? logout : onClose}
       >
         {pathName}
       </Link>
