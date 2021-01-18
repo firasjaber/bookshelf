@@ -9,6 +9,7 @@ import SearchPage from './pages/SearchPage';
 import BookPage from './pages/BookPage';
 import BooksPage from './pages/BooksPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import Footer from './ui/Footer';
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ function App() {
         <Router>
           <Container maxW="3xl" py="2">
             <Switch>
-              <Route path="/book/:bookid">
+              <Route path="/book/:bookId">
                 <Header />
                 <BookPage />
               </Route>
