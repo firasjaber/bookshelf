@@ -23,6 +23,7 @@ function App() {
               <Route path="/book/:bookId">
                 <Header />
                 <BookPage />
+                <Footer />
               </Route>
               <Route path="/books">
                 <Header />
@@ -41,6 +42,7 @@ function App() {
               <Route>
                 <Header />
                 <HomePage path="/" />
+                <Footer />
               </Route>
             </Switch>
           </Container>

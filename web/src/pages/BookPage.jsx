@@ -25,8 +25,7 @@ const BookPage = () => {
     getBookData().then(data => setBookData(data.volumeInfo));
     setLoading(false);
   }, []);
-  console.log(bookData);
-  if (loading) {
+  if (!bookData.title) {
     return (
       <Flex direction="column" alignItems="center" justifyItems="center">
         <Box>
