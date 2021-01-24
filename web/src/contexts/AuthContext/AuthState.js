@@ -9,6 +9,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS,
   LOGOUT,
   CLEAR_ERRORS,
 } from '../types';
@@ -51,7 +53,7 @@ const AuthState = props => {
         'content-type': 'application/json',
       },
     };
-    formdata.username = formdata.username.tolowercase();
+
     try {
       const res = await axios.post(
         API_URL + '/users/register',
@@ -60,15 +62,14 @@ const AuthState = props => {
       );
 
       dispatch({
-        type: LOGIN_SUCCESS,
+        type: REGISTER_SUCCESS,
         payload: res.data,
       });
       login(formdata);
-      loadUser();
     } catch (err) {
       dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response.data.msg,
+        type: REGISTER_FAIL,
+        payload: err.response.data.message,
       });
     }
   };

@@ -12,10 +12,11 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
+  Link,
 } from '@chakra-ui/react';
 import ErrorMessage from '../ui/ErrorMessage';
 import { AuthContext } from './../contexts/AuthContext/AuthState';
-import { Redirect } from 'react-router-dom';
+import { Link as NavLink, Redirect } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -41,6 +42,11 @@ export default function Login() {
     }
   }, [error]);
 
+  const handleDemo = () => {
+    setUsername('demo');
+    setPassword('123456');
+  };
+
   const handlePasswordVisibility = () => setShowPassword(!showPassword);
   if (user) return <Redirect to="/" />;
   return (
@@ -55,7 +61,7 @@ export default function Login() {
         <Box textAlign="center">
           <Heading size="md">Login</Heading>
         </Box>
-        <Box my={4} textAlign="left">
+        <Box mt={4} mb={1} textAlign="left">
           <form onSubmit={handleSubmit}>
             {error && <ErrorMessage message={error} />}
             <FormControl isRequired>
@@ -64,6 +70,7 @@ export default function Login() {
                 type="text"
                 placeholder="test"
                 size="lg"
+                value={username}
                 onChange={event => setUsername(event.currentTarget.value)}
               />
             </FormControl>
@@ -74,6 +81,7 @@ export default function Login() {
                   type={showPassword ? 'text' : 'password'}
                   placeholder="*******"
                   size="lg"
+                  value={password}
                   onChange={event => setPassword(event.currentTarget.value)}
                 />
                 <InputRightElement width="3rem">
@@ -105,6 +113,21 @@ export default function Login() {
               )}
             </Button>
           </form>
+          <Text mt="20px" textAlign="center" fontSize="sm">
+            Dont have an account?
+            <br />
+            <Link
+              as={NavLink}
+              to="/signup"
+              _hover={{ textDecoration: 'underline' }}
+            >
+              signup here{' '}
+            </Link>
+            or{' '}
+            <Link _hover={{ textDecoration: 'underline' }} onClick={handleDemo}>
+              use demo
+            </Link>
+          </Text>
         </Box>
       </Box>
     </Flex>

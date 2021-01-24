@@ -4,6 +4,7 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGOUT,
+  REGISTER_FAIL,
 } from '../types';
 
 export default (state, action) => {
@@ -26,6 +27,7 @@ export default (state, action) => {
       };
     case AUTH_ERROR:
     case LOGIN_FAIL:
+    case REGISTER_FAIL:
     case LOGOUT:
       localStorage.removeItem('token');
       return {
