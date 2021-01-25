@@ -1,9 +1,11 @@
 import express from 'express';
+import { isRegularExpressionLiteral } from 'typescript';
 import auth from '../middleware/auth';
-import { getAllBooks } from './../controllers/book.controllers';
+import { getAllBooks, postBook } from './../controllers/book.controllers';
 
 const router = express.Router();
 
 router.get('/get/all', getAllBooks);
+router.post('/', auth, postBook);
 
 export = router;

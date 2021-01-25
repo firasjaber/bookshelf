@@ -3,6 +3,11 @@ import IBook from './../interfaces/book';
 
 const BookSchema: Schema = new Schema(
   {
+    googleId: {
+      type: String,
+      required: true,
+      index: true,
+    },
     title: {
       type: String,
       required: true,

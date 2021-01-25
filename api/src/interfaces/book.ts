@@ -1,6 +1,7 @@
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
 
 export default interface IBook extends Document {
+  googleId: string;
   title: string;
   subtitle: string;
   authors: Array<number>;
@@ -8,4 +9,5 @@ export default interface IBook extends Document {
   publishedDate: string;
   pageCount: number;
   categories: Array<number>;
+  addedBy: string;
 }
