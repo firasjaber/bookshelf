@@ -28,6 +28,8 @@ const SearchPage = () => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [moreLoading, setMoreLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const axiosInstance = axios.create();
+  delete axiosInstance.defaults.headers.authorization;
   const onChange = e => setBookQuery(e.target.value);
   const submitHandler = e => {
     e.preventDefault();
@@ -45,7 +47,7 @@ const SearchPage = () => {
       const URL = 'https://www.googleapis.com/books/v1/volumes?q=';
       const MAX_ITEMS = '&maxResults=9';
       try {
-        const res = await axios.get(URL + bookQuery + MAX_ITEMS);
+        const res = await axiosInstance.get(URL + bookQuery + MAX_ITEMS);
         setBooks(res.data.items);
         setTotalItems(res.data.totalItems);
         setSearchLoading(false);
@@ -63,7 +65,9 @@ const SearchPage = () => {
     const URL = 'https://www.googleapis.com/books/v1/volumes?q=';
     const MAX_ITEMS = '&maxResults=9';
     const START_INDEX = '&startIndex=' + books.length;
-    const res = await axios.get(URL + bookQuery + START_INDEX + MAX_ITEMS);
+    const res = await axiosInstance.get(
+      URL + bookQuery + START_INDEX + MAX_ITEMS
+    );
     if (!res.data.items) {
       setHasMore(false);
     } else {

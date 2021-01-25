@@ -5,6 +5,7 @@ import logging from './config/logging';
 import config from './config/config';
 import itemRoute from './routes/item.routes';
 import userRoute from './routes/user.routes';
+import bookRoute from './routes/book.routes';
 import connectDB from './utils/db';
 import monitor from 'express-status-monitor';
 import helmet from 'helmet';
@@ -65,6 +66,7 @@ app.use((req, res, next) => {
 /** Routing */
 app.use('/api/v1/items', itemRoute);
 app.use('/api/v1/users', userRoute);
+app.use('/api/v1/books', bookRoute);
 
 /** Error Handling */
 app.use((req, res, next) => {

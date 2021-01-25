@@ -24,7 +24,7 @@ function App() {
           <Router>
             <Container maxW="3xl" py="2">
               <Switch>
-                <ProtectedRoute path="/book/:bookId" component={BookPage} />
+                <Route path="/book/:bookId" component={BookPage} />
 
                 <Route path="/books" component={BooksPage} />
                 <Route path="/search" component={SearchPage} />

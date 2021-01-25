@@ -17,11 +17,14 @@ import Footer from './../ui/Footer';
 const BookPage = () => {
   const [loading, setLoading] = useState(true);
   const [bookData, setBookData] = useState({});
+  const axiosInstance = axios.create();
+  delete axiosInstance.defaults.headers.authorization;
   const { bookId } = useParams();
+  console.log(bookId);
   useEffect(() => {
     const getBookData = async () => {
       const URL = 'https://www.googleapis.com/books/v1/volumes/';
-      const res = await axios.get(URL + bookId);
+      const res = await axiosInstance.get(URL + bookId);
       return res.data;
     };
     getBookData().then(data => setBookData(data.volumeInfo));
