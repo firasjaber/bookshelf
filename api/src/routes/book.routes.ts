@@ -5,7 +5,7 @@ import { getAllBooks, postBook } from './../controllers/book.controllers';
 
 const router = express.Router();
 
-router.get('/get/all', getAllBooks);
+router.get('/',auth, getAllBooks);
 router.post('/', auth, postBook);
 
 export = router;

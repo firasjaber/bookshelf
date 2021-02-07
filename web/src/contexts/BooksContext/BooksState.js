@@ -21,14 +21,15 @@ const BooksState = props => {
     try {
       const URL = API_URL + '/books/';
       const res = await axios.get(URL);
+      console.log(res.data.books)
       dispatch({
         type: GET_BOOKS,
-        payload: res.data,
+        payload: res.data.books,
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
         type: BOOKS_ERROR,
-        payload: err.response.data.message,
+        payload: error.response.data.message,
       });
     }
   };
@@ -41,10 +42,17 @@ const BooksState = props => {
     try {
       const URL = API_URL + '/books/';
       const res = await axios.post(URL, book, config);
-      console.log(res);
+      dispatch({
+        type: POST_BOOK,
+        payload: res.data.data
+      })
       //DISPATCH
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      dispatch({
+        type: BOOKS_ERROR,
+        payload: error.response.data.message
+      })
     }
   };
 

@@ -7,6 +7,11 @@ export default (state, action) => {
         ...state,
         books: action.payload,
       };
+    case POST_BOOK: 
+      return {
+        ...state,
+        books : [action.payload,...state.books]
+      }
     case BOOKS_ERROR:
       return {
         ...state,

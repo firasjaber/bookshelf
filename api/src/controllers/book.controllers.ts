@@ -12,7 +12,19 @@ export const getAllBooks = async (
   next: NextFunction
 ) => {
   logging.info(NAMESPACE, 'get all items route called.');
-  return res.status(200).json({ success: true });
+  
+  try {
+    const userId = res.locals.user._id;
+    const books = await Book.find({addedBy: userId});
+    return res.status(200).json({ success: true , books});
+  } catch (error) {
+    logging.error(NAMESPACE, `INTERNAL ERROR ${error.message}`, error);
+    return res.status(500).json({
+      message: error.message,
+      success: false,
+      error,
+    });
+  }
 };
 
 export const postBook = async (req: Request, res: Response) => {
