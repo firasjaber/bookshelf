@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {
@@ -13,14 +13,16 @@ import {
 } from '@chakra-ui/react';
 import Header from './../ui/Header';
 import Footer from './../ui/Footer';
+import { BooksContext } from './../contexts/BooksContext/BooksState';
+import formatBookData from './../utils/formatBookData'
 
 const BookPage = () => {
   const [loading, setLoading] = useState(true);
   const [bookData, setBookData] = useState({});
+  //loading current book
   const axiosInstance = axios.create();
   delete axiosInstance.defaults.headers.authorization;
   const { bookId } = useParams();
-  console.log(bookId);
   useEffect(() => {
     const getBookData = async () => {
       const URL = 'https://www.googleapis.com/books/v1/volumes/';
@@ -30,6 +32,12 @@ const BookPage = () => {
     getBookData().then(data => setBookData(data.volumeInfo));
     setLoading(false);
   }, []);
+  // add book to the list handler 
+  const { postBook } = useContext(BooksContext);
+  const handleAddBook = () => {
+    const book = formatBookData(bookData,bookId);
+    postBook(book);
+  };
   if (!bookData.title) {
     return (
       <>
@@ -78,7 +86,12 @@ const BookPage = () => {
                 Paperback. {bookData.pageCount} pages.
               </Text>
               <Flex mt="10px" alignItems="center">
-                <Button size="sm" mr="10px" variant="outline">
+                <Button
+                  size="sm"
+                  mr="10px"
+                  variant="outline"
+                  onClick={handleAddBook}
+                >
                   Add to your list
                 </Button>
                 <Link ml="10px" href={bookData.previewLink} isExternal>

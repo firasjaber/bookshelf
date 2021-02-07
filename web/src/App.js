@@ -10,6 +10,7 @@ import BookPage from './pages/BookPage';
 import BooksPage from './pages/BooksPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import AuthState from './contexts/AuthContext/AuthState';
+import BooksState from './contexts/BooksContext/BooksState';
 import ProtectedRoute from './pages/ProtectedRoute';
 const queryClient = new QueryClient();
 
@@ -19,24 +20,26 @@ if (localStorage.token) {
 function App() {
   return (
     <AuthState>
-      <ChakraProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <Container maxW="3xl" py="2">
-              <Switch>
-                <Route path="/book/:bookId" component={BookPage} />
+      <BooksState>
+        <ChakraProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+            <Router>
+              <Container maxW="3xl" py="2">
+                <Switch>
+                  <Route path="/book/:bookId" component={BookPage} />
 
-                <Route path="/books" component={BooksPage} />
-                <Route path="/search" component={SearchPage} />
-                <Route path="/login" component={LoginPage} />
-                <Route path="/signup" component={SignupPage} />
+                  <Route path="/books" component={BooksPage} />
+                  <Route path="/search" component={SearchPage} />
+                  <Route path="/login" component={LoginPage} />
+                  <Route path="/signup" component={SignupPage} />
 
-                <ProtectedRoute path="/" component={HomePage} />
-              </Switch>
-            </Container>
-          </Router>
-        </QueryClientProvider>
-      </ChakraProvider>
+                  <ProtectedRoute path="/" component={HomePage} />
+                </Switch>
+              </Container>
+            </Router>
+          </QueryClientProvider>
+        </ChakraProvider>
+      </BooksState>
     </AuthState>
   );
 }

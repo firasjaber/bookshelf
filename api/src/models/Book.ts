@@ -36,6 +36,10 @@ const BookSchema: Schema = new Schema(
       type: Array,
       required: false,
     },
+    state: {
+      type: String,
+      default: 'to-read',
+    },
     addedBy: {
       type: SchemaTypes.ObjectId,
       required: true,

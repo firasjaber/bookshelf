@@ -9,5 +9,6 @@ export default interface IBook extends Document {
   publishedDate: string;
   pageCount: number;
   categories: Array<number>;
+  state: string;
   addedBy: string;
 }
